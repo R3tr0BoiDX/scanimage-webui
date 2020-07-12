@@ -1,0 +1,111 @@
+body {
+    font-family: sans-serif;
+    font-size: 12px;
+}
+
+#scan-preview>div {
+    
+    display: flex;
+    justify-content: center;
+}
+
+#scan-preview {
+    width: 420px;
+    height: 594px;
+    margin: 0 auto;
+    border: 1px solid gray;
+    position: relative;
+}
+
+#scan-preview .overlay{position: absolute;left: 0;top: 0;}
+
+#scan-preview .content {
+    object-fit: contain;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.scan {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    flex-grow: 1;
+}
+
+.scan fieldset {
+    width: 100%;
+}
+
+.scan-controls div {
+    display: flex;
+    padding: 4px 0 4px 0;
+}
+
+.scan-controls div label {
+    width: 120px;
+    display: inline-block;
+}
+
+.scan-controls div select {
+    width: 100%;
+}
+
+.scan-controls div button {
+    width: 100%;
+}
+
+.image-container {
+    width: 200px;
+    height: 280px;
+    float: left;
+    border: 1px solid gray;
+    margin: 2px;
+    padding: 2px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.image img {
+    max-width: 200px;
+    max-height: 200px;
+}
+
+.image {
+    display: flex;
+    justify-content: center;
+}
+
+.image-desc {
+    /*display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 4px;*/
+}
+
+.filename { font-weight: bold; }
+.filesize { white-space: nowrap; text-align: right; }
+
+.image-buttons button {
+    width: 100%;
+}
+
+#status-command-history, #status-console-history {
+    height: 250px;
+    display: block;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    max-height: 250px;
+}
+
+.history {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: row;
+}
+
+.history div {
+    width: 100%;
+}
