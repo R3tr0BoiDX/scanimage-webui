@@ -1,6 +1,6 @@
 import json
 from flask import Flask, render_template, request
-from libs.scanner import Scaner
+from .libs.scanner import Scaner
 from datetime import datetime
 
 

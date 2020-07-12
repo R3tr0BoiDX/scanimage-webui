@@ -2,7 +2,7 @@ import datetime
 import os
 import re
 import subprocess
-from libs.threads import CommonThread
+from .threads import CommonThread
 from PIL import Image
 
 

@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 import os
 import sys
-from app import App
+from .app import App
 
 
 def main():
