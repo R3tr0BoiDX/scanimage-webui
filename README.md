@@ -4,5 +4,15 @@ WebUI for linux command ScanImage. Based on Python and JavaScript. Runs on local
 
 # Instalation
 ```bash
-wget https://gitlab.com/alda78/getsubstr/-/archive/master/getsubstr-master.tar && tar -xf getsubstr-master.tar && cd getsubstr-master/ && sudo python3 setup.py install && cd ../ &&  sudo rm -rf getsubstr-master
+wget https://gitlab.com/alda78/getsubstr/-/archive/master/scanimage-webui-master.tar \
+&& tar -xf scanimage-webui-master.tar \
+&& cd scanimage-webuir-master/ \
+&& sudo python3 setup.py install \
+&& cd ../ \
+&&  sudo rm -rf getsubstr-master
+```
+
+# Running
+```bash
+scanimage-webui
 ```
