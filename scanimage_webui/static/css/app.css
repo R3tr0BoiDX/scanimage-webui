@@ -14,17 +14,12 @@ body {
     height: 594px;
     margin: 0 auto;
     border: 1px solid gray;
-    position: relative;
 }
-
-#scan-preview .overlay{position: absolute;left: 0;top: 0;}
 
 #scan-preview .content {
     object-fit: contain;
     width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
+    height: 100%;
 }
 
 .scan {

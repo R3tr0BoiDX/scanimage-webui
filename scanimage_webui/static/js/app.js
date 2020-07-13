@@ -27,6 +27,7 @@ class App {
 		];
 		this.config.scanerStatusReady = "ready";
 		this.config.scanerStatusProcessing = "processing";
+		this.config.scanerStatusError = "error";
 		this._lastAppStatus = "";
 		this._interval = null;
 		this._imagePreviewFileName = "";
@@ -48,7 +49,6 @@ class App {
 			<fieldset>
 				<legend>Scan preview</legend>
 				<div id="scan-preview"></div>
-				<div id="scan-preview-crop-info"></div>
 			</fieldset>
 			<fieldset>
 				<legend>Scan controls</legend>
@@ -61,7 +61,7 @@ class App {
 					<div><button id="scan-control-btn-crop-image">Crop image</button></div>
 					<div><button id="scan-control-btn-rotate-image-left">Rotate image left</button></div>
 					<div><button id="scan-control-btn-rotate-image-right">Rotate image right</button></div>
-					
+					<div id="scan-preview-crop-info"></div>
 				</div>
 			</fieldset>
 		</div>
@@ -95,21 +95,17 @@ class App {
 		Form.setSelectOptions("scan-control-select-resolution", this.config.resolutionChoices);
 		this.$("#scan-control-btn-preview").click(()=>{
 			this._runScanPreview();
-			this._interval = window.setInterval(()=>{
-				this._getAppStatus();
-			}, 4000);
+			this._startGetAppStatusInterval();
 		});
 
 		this.$("#scan-control-btn-scan").click(()=>{
 			this._runScan();
-			this._interval = window.setInterval(()=>{
-				this._getAppStatus();
-			}, 4000);
+			this._startGetAppStatusInterval();
 		});
 
 		this.$mainContainer.find("#scan-control-btn-crop-image").click(()=>{
 			this._scanCroppr = new Croppr(
-				`#scan-preview img.overlay`,
+				`#scan-preview img.content`,
 				{
 					startSize: [100, 100, "%"],
 					onCropMove: (value) => {
@@ -122,23 +118,25 @@ class App {
 
 		this.$mainContainer.find("#scan-control-btn-rotate-image-left").click(()=>{
 			this._callApi("rotateImage",
-				{"filename": this._imagePreviewFileName, "direction": -1},
+				{"filename": this._imagePreviewFileName, "angle": 90},
 				(data)=>{
 					this._renderImagePreview();
+					this._renderImageList();
 				})
 		});
 
 		this.$mainContainer.find("#scan-control-btn-rotate-image-right").click(()=>{
 			this._callApi("rotateImage",
-				{"filename": this._imagePreviewFileName, "direction": 1},
+				{"filename": this._imagePreviewFileName, "angle": 270},
 				(data)=>{
 					this._renderImagePreview();
+					this._renderImageList();
 				})
 		});
 
 		this.$(window).on("appStatusChanged", (event, status)=>{
 			if(status == this.config.scanerStatusReady) {
-				window.clearInterval(this._interval);
+				this._stopGetAppStatusInterval();
 				this._renderImagePreview();
 				this._renderImageList();
 			}
@@ -151,12 +149,28 @@ class App {
 				if(this._lastAppStatus != data.status) {
 					this.$(window).trigger("appStatusChanged", [data.status]);
 				}
+				if(data.status == this.config.scanerStatusError){
+					this._stopGetAppStatusInterval();
+				}
 				this.$mainContainer.find("#status").text(data.status);
 				this._lastAppStatus = data.status;
 			}
 			if(data.command) this.$mainContainer.find("#status-command-history").append(`<div>${data.command}</div>`);
 			if(data.console) this.$("#status-console-history").append(`<div>${data.console}</div>`);
 		});
+	}
+	
+	_startGetAppStatusInterval(){
+		this._interval = window.setInterval(()=>{
+				this._getAppStatus();
+			}, 4000);
+	}
+	
+	_stopGetAppStatusInterval(){
+		if(this._interval) {
+			window.clearInterval(this._interval);
+			this._interval = null;
+		}
 	}
 
 	_runScanPreview(){
@@ -190,8 +204,7 @@ class App {
 		let rnd = Math.random();
 		let container = this.$mainContainer.find(`#scan-preview`);
 		let filepath = `${this.config.scanedImagesURL}/${this._imagePreviewFileName}`;
-		let imageHTML = `<img class="overlay" src="/static/img/empty-paper.png"/>` + 
-			`<img class="content" src="${filepath}?${rnd}"/>`;
+		let imageHTML = `<img class="content" src="${filepath}?${rnd}"/>`;
 		container.html(imageHTML);
 	}
 
@@ -240,16 +253,25 @@ class App {
 		let container = this.$mainContainer.find("#scan-preview-crop-info");
 		container.empty();
 		if(this._scanCropData){
-			let x0 = this._scanCropData[0];
-			let y0 = this._scanCropData[1];
-			let x1 = this._scanCropData[2];
-			let y1 = this._scanCropData[3];
-			let content = `<div class="crop-coord">x0:</div><div>${x0} mm</div>` +
-				`<div class="crop-coord">y0:</div><div>${y0} mm</div>` +
-				`<div class="crop-coord">x1:</div><div>${x1} mm</div>` +
-				`<div class="crop-coord">y1:</div><div>${y1} mm</div>`;
+			let x1 = this._scanCropData[0];
+			let y1 = this._scanCropData[1];
+			let x2 = this._scanCropData[2];
+			let y2 = this._scanCropData[3];
+			let content = `<button id="crop-coord">Crop image: [${x1}, ${y1}] [${x2}, ${y2}]</button>`;
 			container.html(content);
+			container.find("#crop-coord").click(()=>{
+				this._cropImage(x1, y1, x2, y2);
+			});
 		}
+	}
+	
+	_cropImage(x1, y1, x2, y2){
+		this._callApi("cropImage", {"filename": this._imagePreviewFileName, "x1": x1, "y1": y1, "x2": x2, "y2": y2 }, (data)=>{
+			let container = this.$mainContainer.find("#scan-preview-crop-info");
+			container.html("");
+			this._renderImagePreview();
+			this._renderImageList();
+		})
 	}
 
 	_callApi(command, params = {}, callback = null){

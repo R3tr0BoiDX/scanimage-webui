@@ -111,9 +111,9 @@ class App:
     def rotate_image():
         args = request.args
         filename = args.get("filename")
-        direction = args.get("direction")
-        result = App.scaner.rotate_image(filename, direction)
-        return App.response_json({{"result": result}})
+        angle = args.get("angle")
+        result = App.scaner.rotate_image(filename, angle)
+        return App.response_json({"result": result})
 
 
     @classmethod
