@@ -1,1 +1,1 @@
-More deails about this project is here in [WIKI](https://gitlab.com/alda78/scanimage-webui/-/wikis/home)
+More details about this project is here in [WIKI](https://gitlab.com/alda78/scanimage-webui/-/wikis/home)
