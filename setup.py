@@ -4,6 +4,12 @@ from setuptools import setup, find_packages
 packages = find_packages()
 print("Packages: {}".format(packages))
 
+REQUIREMENTS_TXT = "./requirements.txt"
+with REQUIREMENTS_TXT.open() as file:
+    INSTALL_REQUIRES = [line.strip() for line in file]
+
+print(f"Requirements: {INSTALL_REQUIRES}")
+
 setup(
     name='ScanImage WEB UI',
     version='1.0.0',
@@ -13,7 +19,7 @@ setup(
     author_email='alda78@seznam.cz',
     description='WEB UI for SANE scanimage command',
     packages=packages,
-    install_requires=['flask', 'pillow'],
+    install_requires=INSTALL_REQUIRES,
     include_package_data=True,  # MANIFEST.in
     zip_safe=False,  # aby se spravne vycitala statika pridana pomoci MANIFEST.in
     entry_points={
