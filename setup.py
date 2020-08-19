@@ -5,7 +5,7 @@ packages = find_packages()
 print("Packages: {}".format(packages))
 
 REQUIREMENTS_TXT = "./requirements.txt"
-with REQUIREMENTS_TXT.open() as file:
+with open(REQUIREMENTS_TXT, "r") as file:
     INSTALL_REQUIRES = [line.strip() for line in file]
 
 print("Requirements: {}".format(INSTALL_REQUIRES,))
