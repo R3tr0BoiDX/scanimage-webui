@@ -8,7 +8,7 @@ REQUIREMENTS_TXT = "./requirements.txt"
 with REQUIREMENTS_TXT.open() as file:
     INSTALL_REQUIRES = [line.strip() for line in file]
 
-print(f"Requirements: {INSTALL_REQUIRES}")
+print("Requirements: {}".format(INSTALL_REQUIRES,))
 
 setup(
     name='ScanImage WEB UI',
