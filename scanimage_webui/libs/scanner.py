@@ -118,7 +118,7 @@ class Scaner:
 
     def rotate_image(self, file_name: str, angle: int) -> int:
         file_path = os.path.join(self._scans_path, file_name)
-        img: Image = Image.open(file_path)
+        img = Image.open(file_path)
         img_rotated = img.rotate(int(angle), expand=True)
         img_rotated.save(file_path)
         return angle
