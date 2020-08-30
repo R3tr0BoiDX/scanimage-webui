@@ -259,9 +259,9 @@ class App {
 			let y1 = this._scanCropData[1];
 			let x2 = this._scanCropData[2];
 			let y2 = this._scanCropData[3];
-			let content = `<button id="crop-coord">Apply image crop: [${x1}, ${y1}] [${x2}, ${y2}]</button>`;
+			let content = `<button id="scan-control-btn-crop-coord">Apply image crop: [${x1}, ${y1}] [${x2}, ${y2}]</button>`;
 			container.html(content);
-			container.find("#crop-coord").click(()=>{
+			container.find("#scan-control-btn-crop-coord").click(()=>{
 				this._cropImage(x1, y1, x2, y2);
 			});
 		}

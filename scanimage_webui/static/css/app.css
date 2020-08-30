@@ -81,6 +81,41 @@ legend {
     font-weight:bold;
 }
 
+#scan-control-btn-preview, #scan-control-btn-scan {
+    background-image: url(/static/img/scan-icon.png);
+    background-position: 20px center;
+    background-repeat: no-repeat;
+    background-size: 30px 30px;
+}
+
+#scan-control-btn-rotate-image-left {
+    background-image: url(/static/img/rotate-l-icon.png);
+    background-position: 20px center;
+    background-repeat: no-repeat;
+    background-size: 30px 30px;
+}
+
+#scan-control-btn-rotate-image-right {
+    background-image: url(/static/img/rotate-r-icon.png);
+    background-position: 20px center;
+    background-repeat: no-repeat;
+    background-size: 30px 30px;
+}
+
+#scan-control-btn-crop-image {
+    background-image: url(/static/img/crop-icon.png);
+    background-position: 20px center;
+    background-repeat: no-repeat;
+    background-size: 30px 30px;
+}
+
+#scan-control-btn-crop-coord {
+    background-image: url(/static/img/crop-icon.png);
+    background-position: 20px center;
+    background-repeat: no-repeat;
+    background-size: 30px 30px;
+}
+
 .image-container {
     width: 200px;
     height: 280px;
