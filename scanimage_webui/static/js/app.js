@@ -211,6 +211,7 @@ class App {
 	_renderImageList(){
 		this._callApi("listImages", {}, (data)=>{
 			if(data){
+				let rnd = Math.random();
 				let container = this.$mainContainer.find("#scaned-images"); 
 				container.empty();
 				for(let index in data) {
@@ -221,7 +222,7 @@ class App {
 					let imageHTML =
 						`<div class="image-container">` +
 							`<div class="image">` +
-								`<img src="${filepath}"/>` +
+								`<img src="${filepath}?${rnd}"/>` +
 							`</div>` +
 							`<div class="decs-container">` +
 								`<div class="image-desc">` +
