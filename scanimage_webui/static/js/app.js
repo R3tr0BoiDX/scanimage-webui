@@ -20,10 +20,11 @@ class App {
 			["Lineart", "Lineart"],
 		];
 		this.config.resolutionChoices = [
-			["600", "600px"],
-			["300", "300px"],
-			["200", "200px"],
-			["96", "96px"],
+			["1200", "1200 dpi"],
+			["600", "600 dpi"],
+			["300", "300 dpi"],
+			["200", "200 dpi"],
+			["96", "96 dpi"],
 		];
 		this.config.scanerStatusReady = "ready";
 		this.config.scanerStatusProcessing = "processing";
@@ -58,9 +59,9 @@ class App {
 					<div><label for="scan-control-select-resolution">Image resolution</label><select id="scan-control-select-resolution"></select></div>
 					<div><button id="scan-control-btn-preview">Scan preview</button></div>
 					<div><button id="scan-control-btn-scan">Scan</button></div>
-					<div><button id="scan-control-btn-crop-image">Crop image</button></div>
 					<div><button id="scan-control-btn-rotate-image-left">Rotate image left</button></div>
 					<div><button id="scan-control-btn-rotate-image-right">Rotate image right</button></div>
+					<div><button id="scan-control-btn-crop-image">Crop image</button></div>
 					<div id="scan-preview-crop-info"></div>
 				</div>
 			</fieldset>
@@ -258,7 +259,7 @@ class App {
 			let y1 = this._scanCropData[1];
 			let x2 = this._scanCropData[2];
 			let y2 = this._scanCropData[3];
-			let content = `<button id="crop-coord">Crop image: [${x1}, ${y1}] [${x2}, ${y2}]</button>`;
+			let content = `<button id="crop-coord">Apply image crop: [${x1}, ${y1}] [${x2}, ${y2}]</button>`;
 			container.html(content);
 			container.find("#crop-coord").click(()=>{
 				this._cropImage(x1, y1, x2, y2);
