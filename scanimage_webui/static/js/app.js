@@ -66,6 +66,7 @@ class App {
 						<div><button id="scan-control-btn-rotate-image-left">Rotate image left</button></div>
 						<div><button id="scan-control-btn-rotate-image-right">Rotate image right</button></div>
 						<div><button id="scan-control-btn-crop-image">Crop image</button></div>
+						<div id="scan-preview-crop-info"></div>
 					</div>
 					<div class="flex-row-item">
 						<div id="scan-control-status"></div>
