@@ -35,6 +35,14 @@ class App:
         return App.response500("Error getting scaner status")
 
     @staticmethod
+    @app.route('/api/initScanner')
+    def init_scaner():
+        ret = App.scaner.reinit_scaner_device()
+        if ret:
+            return App.response_json(ret)
+        return App.response500("Error getting scaner status")
+
+    @staticmethod
     @app.route('/api/scanImage', methods=["GET"])
     def scan_image() -> Flask.response_class:
         """
@@ -64,7 +72,7 @@ class App:
     @app.route('/api/scanPreview', methods=["GET"])
     def scan_preview() -> Flask.response_class:
         filename = "scan-preview.jpeg"
-        result = App.scaner.scan_image(filename, {"mode": "Color", "format": "jpeg", "resolution": "96"})
+        result = App.scaner.scan_image(filename, {"mode": "Color", "format": "jpeg", "resolution": "75"})
         ret = {
             "result": result,
             "filename": filename

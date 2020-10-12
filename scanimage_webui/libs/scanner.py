@@ -34,6 +34,11 @@ class Scaner:
             self.detect_scaner_device()
         return self._scaner_device_name
 
+    def reinit_scaner_device(self) -> str:
+        self._scaner_device = None
+        self._scaner_device_name = None
+        return self.scaner_device
+
     def get_scan_status(self) -> dict:
         ret = {
             "status": self.STATUS_READY if self.scaner_device else self.STATUS_ERROR,

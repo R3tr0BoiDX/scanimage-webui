@@ -20,11 +20,13 @@ class App {
 			["Lineart", "Lineart"],
 		];
 		this.config.resolutionChoices = [
-			["1200", "1200 dpi"],
 			["600", "600 dpi"],
 			["300", "300 dpi"],
+			["150", "150 dpi"],
 			["200", "200 dpi"],
+			["100", "100 dpi"],
 			["96", "96 dpi"],
+			["75", "75 dpi"],
 		];
 		this.config.scanerStatusReady = "ready";
 		this.config.scanerStatusProcessing = "processing";
@@ -53,16 +55,21 @@ class App {
 			</fieldset>
 			<fieldset>
 				<legend>Scan controls</legend>
-				<div class="scan-controls">
-					<div><label for="scan-control-select-format">Image file format:</label><select id="scan-control-select-format"></select></div>
-					<div><label for="scan-control-select-mode">Image mode</label><select id="scan-control-select-mode"></select></div>
-					<div><label for="scan-control-select-resolution">Image resolution</label><select id="scan-control-select-resolution"></select></div>
-					<div><button id="scan-control-btn-preview">Scan preview</button></div>
-					<div><button id="scan-control-btn-scan">Scan</button></div>
-					<div><button id="scan-control-btn-rotate-image-left">Rotate image left</button></div>
-					<div><button id="scan-control-btn-rotate-image-right">Rotate image right</button></div>
-					<div><button id="scan-control-btn-crop-image">Crop image</button></div>
-					<div id="scan-preview-crop-info"></div>
+				<div class="flex-row-container">
+					<div class="scan-controls flex-row-item">
+						<div><label for="scan-control-select-format">Image file format:</label><select id="scan-control-select-format"></select></div>
+						<div><label for="scan-control-select-mode">Image mode</label><select id="scan-control-select-mode"></select></div>
+						<div><label for="scan-control-select-resolution">Image resolution</label><select id="scan-control-select-resolution"></select></div>
+						<div><button id="scan-control-btn-preview">Scan preview</button></div>
+						<div><button id="scan-control-btn-scan">Scan</button></div>
+						<div><button id="scan-control-btn-scan-reinit">Reinit scanner</button></div>
+						<div><button id="scan-control-btn-rotate-image-left">Rotate image left</button></div>
+						<div><button id="scan-control-btn-rotate-image-right">Rotate image right</button></div>
+						<div><button id="scan-control-btn-crop-image">Crop image</button></div>
+					</div>
+					<div class="flex-row-item">
+						<div id="scan-control-status"></div>
+					</div>
 				</div>
 			</fieldset>
 		</div>
@@ -102,6 +109,10 @@ class App {
 		this.$("#scan-control-btn-scan").click(()=>{
 			this._runScan();
 			this._startGetAppStatusInterval();
+		});
+
+		this.$("#scan-control-btn-scan-reinit").click(()=>{
+			this._reinitScanner();
 		});
 
 		this.$mainContainer.find("#scan-control-btn-crop-image").click(()=>{
@@ -153,7 +164,7 @@ class App {
 				if(data.status == this.config.scanerStatusError){
 					this._stopGetAppStatusInterval();
 				}
-				this.$mainContainer.find("#status").text(data.status);
+				this.$mainContainer.find("#status,#scan-control-status").text(data.status);
 				this._lastAppStatus = data.status;
 			}
 			if(data.command) this.$mainContainer.find("#status-command-history").append(`<div>${data.command}</div>`);
@@ -188,6 +199,11 @@ class App {
 		this._callApi("scanImage", {"mode": mode, "format": format, "resolution": resolution}, (data)=>{
 			this._imagePreviewFileName = data["filename"];
 			this._getAppStatus();
+		});
+	}
+
+	_reinitScanner(){
+		this._callApi("initScanner", {}, (data)=>{
 		});
 	}
 
