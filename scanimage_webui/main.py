@@ -9,7 +9,7 @@ from .libs.setuptools import get_file_content
 def _handle_args():
     version = get_file_content(os.path.join(os.path.dirname(__file__), "VERSION"))
     parser = ArgumentParser(description=f"Scan Image WEB UI v{version}")
-    parser.add_argument("-p", "--port", dest="port", default=5000, type=int, help="APP server port")
+    parser.add_argument("-p", "--port", dest="port", default=7800, type=int, help="APP server port")
     parser.add_argument("-d", "--scan-directory", dest="scan_diretory", type=str, help="Directory where scanned images will be stored.")
 
     args = parser.parse_args()
