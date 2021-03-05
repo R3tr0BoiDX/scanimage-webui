@@ -99,11 +99,16 @@ class App:
     @staticmethod
     @app.route('/api/deleteImage', methods=["GET"])
     def delete_image() -> Flask.response_class:
+        """
+        Avaliable GET args:
+        str: filename - * delete all
+        :return: 
+        """
         args = request.args
         filename = args.get("filename")
         if filename:
-            App.scaner.delete_file(filename)
-            return App.response_json({"removed": filename})
+            deleted = App.scaner.delete_file(filename)
+            return App.response_json({"removed": deleted})
         else:
             return App.response404()
 

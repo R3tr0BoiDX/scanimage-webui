@@ -77,6 +77,10 @@ class App {
 			<fieldset>
 			<legend>Scaned images</legend>
 			<div id="scaned-images"></div>
+			<div class="clean"></div>
+			<div id="scaned-images-buttons">
+				<button id="images-button-delete-all">Delete all images</button>
+			</div>
 		</fieldset>
 		<fieldset>
 			<legend>Status [<span id="status"></span>]</legend>
@@ -143,6 +147,14 @@ class App {
 				{"filename": this._imagePreviewFileName, "angle": 270},
 				(data)=>{
 					this._renderImagePreview();
+					this._renderImageList();
+				})
+		});
+
+		this.$mainContainer.find("#images-button-delete-all").click(()=>{
+			this._callApi("deleteImage",
+				{"filename": "*"},
+				(data)=>{
 					this._renderImageList();
 				})
 		});

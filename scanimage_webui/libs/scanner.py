@@ -110,9 +110,24 @@ class Scaner:
         return ""
 
     def delete_file(self, file_name):
-        file_path = os.path.join(self._scans_path, file_name)
-        if os.path.exists(file_path):
-            os.remove(file_path)
+        """
+        Delete file or all files in directory
+        :param file_name: Filename or * to teleto all
+        :return: List of removed files
+        :rtype: list
+        """
+        removed = []
+        if file_name == "*":
+            file_list = os.listdir(self._scans_path)
+        else:
+            file_list = [file_name]
+
+        for file in file_list:
+            file_path = os.path.join(self._scans_path, file)
+            if os.path.exists(file_path):
+                os.remove(file_path)
+                removed.append(file)
+        return removed
 
     def crop_image(self, file_name: str, x1: int, y1: int, x2: int, y2: int) -> bool:
         file_path = os.path.join(self._scans_path, file_name)

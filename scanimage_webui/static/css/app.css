@@ -46,6 +46,13 @@ legend {
     height: 100%;
 }
 
+#scaned-images-buttons {
+    margin: 4px;
+    padding: 4px;
+}
+
+.clean { clear: both }
+
 .scan {
     display: flex;
     flex-flow: row;
