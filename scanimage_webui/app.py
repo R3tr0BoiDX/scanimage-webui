@@ -1,5 +1,5 @@
 import json
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, send_from_directory
 from .libs.scanner import Scaner
 from datetime import datetime
 
@@ -25,6 +25,11 @@ class App:
     @app.route("/")
     def index() -> Flask.response_class:
         return render_template("index.html")
+
+    @staticmethod
+    @app.route("/scanimage/<path:filename>")
+    def serve_scanimage_folder(filename: str):
+        return send_from_directory(App.SCAN_FOLDER, filename, as_attachment=True)
 
     @staticmethod
     @app.route('/api/scanStatus')
