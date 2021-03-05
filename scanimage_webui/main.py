@@ -13,6 +13,7 @@ def _handle_args():
     parser.add_argument("-d", "--scan-directory", dest="scan_diretory", type=str, help="Directory where scanned images will be stored.")
 
     args = parser.parse_args()
+    args.__setattr__("version", version)
 
     if not args.scan_diretory:
         home = os.path.expanduser("~")
@@ -25,9 +26,9 @@ def _handle_args():
 
 def main():
     app_args = _handle_args()
-    print(f"Images will scanned into folder: '{app_args.scan_diretory}'")
+    print("Images will scanned into folder: '{}'".format(app_args.scan_diretory))
     app = App()
-    app.init(scan_folder_path=app_args.scan_diretory, port=app_args.port)
+    app.init(port=app_args.port, scan_folder_path=app_args.scan_diretory, version=app_args.version)
     app.run()
 
 

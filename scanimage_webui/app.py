@@ -11,9 +11,10 @@ class App:
     scaner = None  # type: Scaner
 
     @classmethod
-    def init(cls, scan_folder_path: str, port: int=5000):
+    def init(cls, scan_folder_path: str, version: str, port: int=5000):
         cls.PORT = port
         cls.SCAN_FOLDER = scan_folder_path
+        cls.VERSION = version
         cls.scaner = Scaner(cls.SCAN_FOLDER)
         print("Serving app at port: {}".format(port))
 
@@ -24,7 +25,7 @@ class App:
     @staticmethod
     @app.route("/")
     def index() -> Flask.response_class:
-        return render_template("index.html")
+        return render_template("index.html", data={"version": App.VERSION})
 
     @staticmethod
     @app.route("/scanimage/<path:filename>")
