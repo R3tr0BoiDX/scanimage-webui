@@ -3,7 +3,7 @@ from scanimage_webui.libs.setuptools import get_file_content, get_file_content_a
 
 
 packages = find_packages()
-print(f"Found packages: {packages}")
+print("Found packages: {packages}".format(packages=packages))
 VERSION = get_file_content("scanimage_webui/VERSION")
 INSTALL_REQUIRES = get_file_content_as_list("requirements.txt")
 DOCUMENTATION_MD = get_file_content("README.md")
