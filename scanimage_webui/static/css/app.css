@@ -134,6 +134,15 @@ legend {
     background-size: 30px 30px;
 }
 
+#images-button-delete-all {
+    background-image: url(/static/img/delete-icon.png);
+    background-position: 20px center;
+    background-repeat: no-repeat;
+    background-size: 30px 30px;
+    width: 260px;
+    height: 44px;
+}
+
 #scan-control-status {
     text-align: center;
     font-size: 26px;
