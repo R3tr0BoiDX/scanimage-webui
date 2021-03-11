@@ -200,7 +200,8 @@ class App {
 	}
 
 	_runScanPreview(){
-		this._callApi("scanPreview", {}, (data)=>{
+		let brightness = document.getElementById("scan-control-range-brightness").value;
+		this._callApi("scanPreview", {"brightness": brightness}, (data)=>{
 			this._imagePreviewFileName = data["filename"];
 			this._getAppStatus();
 		});

@@ -63,7 +63,8 @@ class App:
         params = {
             "mode": args.get("mode", "Color"),
             "format": args.get("format", "jpg"),
-            "resolution": args.get("resolution", "300")
+            "resolution": args.get("resolution", "300"),
+            "brightness": args.get("brightness", "0")
         }
         base_filename = "scan-{}".format(datetime.now().strftime("%Y%m%d-%H%M%S"))
         filename = "{}.{}".format(base_filename, format_)
@@ -77,8 +78,15 @@ class App:
     @staticmethod
     @app.route('/api/scanPreview', methods=["GET"])
     def scan_preview() -> Flask.response_class:
+        args = request.args
         filename = "scan-preview.jpeg"
-        result = App.scaner.scan_image(filename, {"mode": "Color", "format": "jpeg", "resolution": "75"})
+        params = {
+            "mode": "Color",
+            "format": "jpeg",
+            "resolution": "75",
+            "brightness": args.get("brightness", "0")
+        }
+        result = App.scaner.scan_image(filename, params)
         ret = {
             "result": result,
             "filename": filename
