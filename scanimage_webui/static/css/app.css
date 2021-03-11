@@ -92,6 +92,10 @@ legend {
     font-weight:bold;
 }
 
+#scan-control-range-brightness {
+    width: 100%;
+}
+
 #scan-control-btn-preview, #scan-control-btn-scan {
     background-image: url(/static/img/scan-icon.png);
     background-position: 20px center;
@@ -205,4 +209,10 @@ legend {
 
 .history div {
     width: 100%;
+}
+
+#version {
+    max-width: 1080px;
+    margin: 0 auto;
+    text-align: right;
 }

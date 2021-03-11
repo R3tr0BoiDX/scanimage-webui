@@ -7,7 +7,7 @@ from PIL import Image
 
 
 class Scaner:
-    ALLOWED_PARAMS = ["format", "mode", "resolution", "type"]
+    ALLOWED_PARAMS = ["format", "mode", "resolution", "type", "brightness"]
     ALLOWED_FILETYPES = ["jpg", "jpeg", "png", "tiff", "tif"]
 
     STATUS_ERROR = "error"

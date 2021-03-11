@@ -60,6 +60,7 @@ class App {
 						<div><label for="scan-control-select-format">Image file format:</label><select id="scan-control-select-format"></select></div>
 						<div><label for="scan-control-select-mode">Image mode</label><select id="scan-control-select-mode"></select></div>
 						<div><label for="scan-control-select-resolution">Image resolution</label><select id="scan-control-select-resolution"></select></div>
+						<div><label for="scan-control-range-brightness">Brightness</label><input type="range" id="scan-control-range-brightness" min="-255" max="255" value="0"></div>
 						<div><button id="scan-control-btn-preview">Scan preview</button></div>
 						<div><button id="scan-control-btn-scan">Scan</button></div>
 						<div><button id="scan-control-btn-scan-reinit">Reinit scanner</button></div>
@@ -209,7 +210,8 @@ class App {
 		let mode = Form.getSelectSelectedOptionValue("scan-control-select-mode");
 		let format = Form.getSelectSelectedOptionValue("scan-control-select-format");
 		let resolution = Form.getSelectSelectedOptionValue("scan-control-select-resolution");
-		this._callApi("scanImage", {"mode": mode, "format": format, "resolution": resolution}, (data)=>{
+		let brightness = document.getElementById("scan-control-range-brightness").value;
+		this._callApi("scanImage", {"mode": mode, "format": format, "resolution": resolution, "brightness": brightness}, (data)=>{
 			this._imagePreviewFileName = data["filename"];
 			this._getAppStatus();
 		});
