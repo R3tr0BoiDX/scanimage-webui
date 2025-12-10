@@ -2,7 +2,7 @@ import time
 from threading import Thread
 
 
-class CommonThread (Thread):
+class CommonThread(Thread):
     def __init__(self, thread_id, thread_function, thread_kwars={}):
         super().__init__()
         self.thread_id = thread_id

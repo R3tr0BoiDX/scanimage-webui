@@ -9,15 +9,15 @@ INSTALL_REQUIRES = get_file_content_as_list("requirements.txt")
 DOCUMENTATION_MD = get_file_content("README.md")
 
 setup(
-    name='scanimage-webui',
+    name="scanimage-webui",
     version=VERSION,
-    license='MIT',
-    author='Ales Adamek',
-    author_email='alda78@seznam.cz',
-    description='WEB UI for SANE scanimage command.',
+    license="MIT",
+    author="Ales Adamek, Mirco Janisch",
+    author_email="alda78@seznam.cz, r3tr0boidx@gmail.com",
+    description="Web UI for SANE scanimage command.",
     long_description=DOCUMENTATION_MD,
     long_description_content_type="text/markdown",
-    url='https://gitlab.com/alda78/scanimage-webui',
+    url="https://gitlab.com/alda78/scanimage-webui",
     packages=packages,
     classifiers=[
         "Programming Language :: Python :: 3",
@@ -27,10 +27,10 @@ setup(
     python_requires=">=3.6",
     install_requires=INSTALL_REQUIRES,
     include_package_data=True,  # MANIFEST.in
-    zip_safe=False,  # aby se spravne vycitala statika pridana pomoci MANIFEST.in
+    zip_safe=False,
     entry_points={
-        'console_scripts': [
-            'scanimage-webui=scanimage_webui.main:main',
+        "console_scripts": [
+            "scanimage-webui=scanimage_webui.main:main",
         ],
     },
 )
