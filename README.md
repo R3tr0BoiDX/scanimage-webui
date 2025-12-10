@@ -8,7 +8,7 @@ You can also run it on a Raspberry Pi, for example using Raspberry Pi OS.
 ## Installation
 
 ```bash
-apt update && apt install sane-utils
+sudo apt update && sudo apt install sane-utils -y
 wget https://gitlab.com/alda78/scanimage-webui/-/archive/master/scanimage-webui-master.tar
 tar -xf scanimage-webui-master.tar
 cd scanimage-webui-master/
@@ -20,8 +20,8 @@ sudo rm -rf scanimage-webui-master
 or simply
 
 ```bash
-apt update && apt install sane-utils
-pip3 install scanimage-webui
+apt update && apt install sane-utils -y
+pipx install scanimage-webui
 ```
 
 ## Running

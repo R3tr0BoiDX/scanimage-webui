@@ -17,7 +17,7 @@ setup(
     description="Web UI for SANE scanimage command.",
     long_description=DOCUMENTATION_MD,
     long_description_content_type="text/markdown",
-    url="https://gitlab.com/alda78/scanimage-webui",
+    url="https://github.com/R3tr0BoiDX/scanimage-webui",
     packages=packages,
     classifiers=[
         "Programming Language :: Python :: 3",
