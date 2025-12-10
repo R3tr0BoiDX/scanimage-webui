@@ -67,7 +67,7 @@ class App {
 						<div><label for="scan-control-range-gamma">gamma</label><input type="range" id="scan-control-range-gamma" min="0" max="5" step="0.1" value="2.2"></div>
 						<div><button id="scan-control-btn-preview">Scan preview</button></div>
 						<div><button id="scan-control-btn-scan">Scan</button></div>
-						<div><button id="scan-control-btn-scan-reinit">Reinit scanner</button></div>
+						<div><button id="scan-control-btn-scan-reinitialize">Reinitialize scanner</button></div>
 						<div><button id="scan-control-btn-rotate-image-left">Rotate image left</button></div>
 						<div><button id="scan-control-btn-rotate-image-right">Rotate image right</button></div>
 						<div><button id="scan-control-btn-crop-image">Crop image</button></div>
@@ -80,10 +80,10 @@ class App {
 			</fieldset>
 		</div>
 			<fieldset>
-			<legend>Scaned images</legend>
-			<div id="scaned-images"></div>
+			<legend>Scanned images</legend>
+			<div id="scanned-images"></div>
 			<div class="clean"></div>
-			<div id="scaned-images-buttons">
+			<div id="scanned-images-buttons">
 				<button id="images-button-delete-all">Delete all images</button>
 			</div>
 		</fieldset>
@@ -127,8 +127,8 @@ class App {
       this._startGetAppStatusInterval();
     });
 
-    this.$("#scan-control-btn-scan-reinit").click(() => {
-      this._reinitScanner();
+    this.$("#scan-control-btn-scan-reinitialize").click(() => {
+      this._reinitializeScanner();
     });
 
     this.$mainContainer.find("#scan-control-btn-crop-image").click(() => {
@@ -259,7 +259,7 @@ class App {
     );
   }
 
-  _reinitScanner() {
+  _reinitializeScanner() {
     this._callApi("initScanner", {}, (data) => {});
   }
 
@@ -275,7 +275,7 @@ class App {
   _renderImagePreview() {
     let rnd = Math.random();
     let container = this.$mainContainer.find(`#scan-preview`);
-    let filepath = `${this.config.scanedImagesURL}/${this._imagePreviewFileName}`;
+    let filepath = `${this.config.scannedImagesURL}/${this._imagePreviewFileName}`;
     let imageHTML = `<img class="content" src="${filepath}?${rnd}"/>`;
     container.html(imageHTML);
   }
@@ -284,12 +284,12 @@ class App {
     this._callApi("listImages", {}, (data) => {
       if (data) {
         let rnd = Math.random();
-        let container = this.$mainContainer.find("#scaned-images");
+        let container = this.$mainContainer.find("#scanned-images");
         container.empty();
         for (let index in data) {
           let item = data[index];
           let filename = item.fileName;
-          let filepath = `${this.config.scanedImagesURL}/${filename}`;
+          let filepath = `${this.config.scannedImagesURL}/${filename}`;
           let fileSize = Utils.formatFileSize(item.size);
           let imageHTML =
             `<div class="image-container">` +
