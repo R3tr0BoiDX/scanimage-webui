@@ -21,7 +21,7 @@ or simply
 
 ```bash
 apt update && apt install sane-utils -y
-pipx install scanimage-webui
+pipx install scanimage-webui-reborn  # not available via pip yet, soon
 ```
 
 ## Running
@@ -58,7 +58,7 @@ WantedBy=multi-user.target
 systemctl enable scanimage-webui.service
 ```
 
-after that is possible to use
+after that you can use
 
 ```bash
 systemctl start scanimage-webui.service
