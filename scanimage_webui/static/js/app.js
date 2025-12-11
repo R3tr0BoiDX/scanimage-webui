@@ -29,7 +29,7 @@ class App {
       ["75", "75 dpi"],
     ];
     this.config.scannerStatusReady = "ready";
-    this.config.scannerStatusProcessing = "processing";
+    this.config.scannerStatusProcessing = "scanning";
     this.config.scannerStatusError = "error";
     this._lastAppStatus = "";
     this._interval = null;
@@ -52,6 +52,7 @@ class App {
 
   _renderUI() {
     let ui = `
+    <div id="scan-control-status">ready</div>
 		<div class="scan">
 			<fieldset>
 				<legend>Scan preview</legend>
@@ -65,16 +66,16 @@ class App {
 						<div><label for="scan-control-select-mode">Image mode</label><select id="scan-control-select-mode"></select></div>
 						<div><label for="scan-control-select-resolution">Image resolution</label><select id="scan-control-select-resolution"></select></div>
 						<div><label for="scan-control-range-gamma">gamma</label><input type="range" id="scan-control-range-gamma" min="0" max="5" step="0.1" value="2.2"></div>
-						<div><button id="scan-control-btn-preview">Scan preview</button></div>
+						<div><button id="scan-control-btn-preview">Preview</button></div>
 						<div><button id="scan-control-btn-scan">Scan</button></div>
+            <div><button id="scan-control-btn-download">Download</button></div>
 						<div><button id="scan-control-btn-scan-reinitialize">Reinitialize scanner</button></div>
-						<div><button id="scan-control-btn-rotate-image-left">Rotate image left</button></div>
-						<div><button id="scan-control-btn-rotate-image-right">Rotate image right</button></div>
+						<div><button id="scan-control-btn-rotate-image-left">Rotate left</button></div>
+						<div><button id="scan-control-btn-rotate-image-right">Rotate right</button></div>
 						<div><button id="scan-control-btn-crop-image">Crop image</button></div>
 						<div id="scan-preview-crop-info"></div>
 					</div>
 					<div class="flex-row-item">
-						<div id="scan-control-status"></div>
 					</div>
 				</div>
 			</fieldset>
@@ -88,17 +89,17 @@ class App {
 			</div>
 		</fieldset>
 		<fieldset>
-			<legend>Status [<span id="status"></span>]</legend>
+			<legend>History</legend>
 			<div class="history">
 				<div>
 					<fieldset>
-						<legend>Command history</legend>
+						<legend>Command</legend>
 						<code id="status-command-history"></code>
 					</fieldset>
 				</div>
 				<div>
 					<fieldset>
-						<legend>Console history</legend>
+						<legend>Console</legend>
 						<code id="status-console-history"></code>
 					</fieldset>
 				</div>
@@ -117,9 +118,14 @@ class App {
       "scan-control-select-resolution",
       this.config.resolutionChoices
     );
+
     this.$("#scan-control-btn-preview").click(() => {
       this._runScanPreview();
       this._startGetAppStatusInterval();
+    });
+
+    this.$("#scan-control-btn-download").click(() => {
+      this._downloadImage();
     });
 
     this.$("#scan-control-btn-scan").click(() => {
@@ -231,6 +237,21 @@ class App {
       this._imagePreviewFileName = data["filename"];
       this._getAppStatus();
     });
+  }
+
+  _downloadImage() {
+    let img = document.querySelector('#scan-preview img.content');
+    if (!img) return alert("No image found!");
+
+    // Create a temporary link to trigger download
+    let link = document.createElement('a');
+    link.href = img.src;
+
+    // Optional: filename from the URL
+    link.download = img.src.split('/').pop().split('?')[0];
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }
 
   _runScan() {

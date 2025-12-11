@@ -67,3 +67,10 @@ systemctl start scanimage-webui.service
 ## Screenshot
 
 ![scanimage-webui screenshot](scanimage-webui.png)
+
+
+## TODOs
+
+* Rename "gamma" label to "Gamma"
+* Add button to download PDF
+* Pack and upload to PyPI

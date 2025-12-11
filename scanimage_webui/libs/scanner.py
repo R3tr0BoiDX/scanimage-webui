@@ -13,7 +13,7 @@ class Scanner:
 
     STATUS_ERROR = "error"
     STATUS_READY = "ready"
-    STATUS_PROCESSING = "processing"
+    STATUS_PROCESSING = "scanning"
 
     def __init__(self, scans_path: str):
         self._scanner_device: Optional[str] = None

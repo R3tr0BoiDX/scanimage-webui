@@ -68,7 +68,7 @@ class WebUI:
         args = request.args
         format_ = args.get("format", "jpg")
         params = {
-            "mode": args.get("mode", "Color"),
+            "mode": args.get("mode", "Gray"),
             "format": args.get("format", "jpg"),
             "resolution": args.get("resolution", "300"),
             "gamma": args.get("gamma", "2.2"),
@@ -87,7 +87,7 @@ class WebUI:
         args = request.args
         filename = "scan-preview.jpeg"
         params = {
-            "mode": "Color",
+            "mode": "Gray",
             "format": "jpeg",
             "resolution": "75",
             "gamma": args.get("gamma", "2.2"),

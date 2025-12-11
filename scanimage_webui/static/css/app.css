@@ -1,14 +1,21 @@
+:root {
+  --primary-color: #19b385;
+  --secondary-color: #f1e3b6;
+  --background-color: #f5f5f5;
+}
+
 /* --- Global & Typography --- */
 body {
   font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
     Arial, sans-serif;
-  font-size: 14px; 
-  background-color: #f5f5f5;
-  color: #333; 
+  font-size: 14px;
+  background-color: var(--background-color);
+  color: #333;
   line-height: 1.5;
+  margin: 0;
 }
 
-/* --- Layout & Containers --- */
+/* --- Layout --- */
 #main-container {
   max-width: 1080px;
   margin: 20px auto;
@@ -19,7 +26,7 @@ body {
 fieldset {
   margin-bottom: 24px;
   background-color: white;
-  border: none; 
+  border: none;
   border-radius: 4px;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
     0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
@@ -28,8 +35,8 @@ fieldset {
 
 /* Card Titles */
 legend {
-  background-color: transparent; 
-  color: #BBBE64; 
+  background-color: white;
+  color: var(--primary-color);
   padding: 0 8px;
   font-weight: 500;
   font-size: 1.1rem;
@@ -37,9 +44,12 @@ legend {
   border: none;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  border-radius: 4px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+    0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
 }
 
-/* --- Scan Preview Area --- */
+/* --- Scan Preview --- */
 #scan-preview > div {
   display: flex;
   justify-content: center;
@@ -52,8 +62,6 @@ legend {
   margin: 0 auto;
   border: none;
   background-color: white;
-  box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12),
-    0 2px 4px -1px rgba(0, 0, 0, 0.3);
 }
 
 #scan-preview .content {
@@ -62,7 +70,7 @@ legend {
   height: 100%;
 }
 
-/* --- Control Layouts --- */
+/* --- Controls Layout --- */
 #scanned-images-buttons {
   margin: 16px 4px;
   padding: 4px;
@@ -77,7 +85,7 @@ legend {
   flex-flow: row;
   justify-content: space-between;
   flex-grow: 1;
-  gap: 20px; 
+  gap: 24px;
 }
 
 .scan fieldset {
@@ -86,18 +94,18 @@ legend {
 
 .scan-controls div {
   display: flex;
-  align-items: center; 
+  align-items: center;
   padding: 8px 0;
 }
 
 .scan-controls div label {
   width: 120px;
   display: inline-block;
-  color: #666; 
+  color: #666;
   font-weight: 500;
 }
 
-/* --- Form Elements --- */
+/* --- Inputs & Selects --- */
 .scan-controls select {
   height: 36px;
   font-weight: normal;
@@ -111,7 +119,7 @@ legend {
 
 .scan-controls select:focus {
   outline: none;
-  border-bottom-color: #1976d2;
+  border-bottom-color: var(--primary-color);
 }
 
 #scan-control-range-gamma {
@@ -125,7 +133,7 @@ legend {
 #images-button-delete-all {
   border: none;
   border-radius: 4px;
-  background-color: #fff; 
+  background-color: #fff;
   text-transform: uppercase;
   font-weight: 600;
   letter-spacing: 0.75px;
@@ -133,7 +141,8 @@ legend {
     0 1px 5px 0 rgba(0, 0, 0, 0.12);
   cursor: pointer;
   transition: box-shadow 0.2s, background-color 0.2s;
-  color: #333;
+  color: #444;
+  height: 48px;
 }
 
 .scan-controls div button:hover,
@@ -146,48 +155,113 @@ legend {
 
 .scan-controls div button:active,
 .image-buttons button:active {
-  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
-    0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
   background-color: #eee;
+  box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.1);
 }
 
-.scan-controls button {
-  height: 48px; 
-  font-weight: bold;
+.scan-controls div button {
+  width: 100%;
 }
 
-#scan-control-btn-preview,
-#scan-control-btn-scan,
-#scan-control-btn-scan-reinitialize,
-#scan-control-btn-rotate-image-left,
-#scan-control-btn-rotate-image-right,
-#scan-control-btn-crop-image,
-#scan-control-btn-crop-coord,
-#images-button-delete-all {
-  padding-left: 50px;
+/* --- Buttons with Icons --- */
+#scan-control-btn-preview {
+  background-image: url(/static/img/eye.svg);
+  background-position: 16px center;
+  background-repeat: no-repeat;
+  background-size: 24px 24px;
+  padding-left: 56px;
+  text-align: left;
+}
+
+#scan-control-btn-scan {
+  background-image: url(/static/img/scanner.svg);
+  background-position: 16px center;
+  background-repeat: no-repeat;
+  background-size: 24px 24px;
+  padding-left: 56px;
+  text-align: left;
+  color: black;
+  background-color: var(--primary-color);
+}
+
+#scan-control-btn-scan-reinitialize {
+  background-image: url(/static/img/autorenew.svg);
+  background-position: 16px center;
+  background-repeat: no-repeat;
+  background-size: 24px 24px;
+  padding-left: 56px;
+  text-align: left;
+}
+
+#scan-control-btn-rotate-image-left {
+  background-image: url(/static/img/restore.svg);
+  background-position: 16px center;
+  background-repeat: no-repeat;
+  background-size: 24px 24px;
+  padding-left: 56px;
+  text-align: left;
+}
+
+#scan-control-btn-rotate-image-right {
+  background-image: url(/static/img/reload.svg);
+  background-position: 16px center;
+  background-repeat: no-repeat;
+  background-size: 24px 24px;
+  padding-left: 56px;
+  text-align: left;
+}
+
+#scan-control-btn-crop-image {
+  background-image: url(/static/img/crop.svg);
+  background-position: 16px center;
+  background-repeat: no-repeat;
+  background-size: 24px 24px;
+  padding-left: 56px;
+  text-align: left;
+}
+
+#scan-control-btn-crop-coord {
+  background-image: url(/static/img/crop.svg);
+  background-position: 16px center;
+  background-repeat: no-repeat;
+  background-size: 24px 24px;
+  padding-left: 56px;
+  text-align: left;
+}
+
+#scan-control-btn-download {
+  background-image: url(/static/img/download.svg);
+  background-position: 16px center;
+  background-repeat: no-repeat;
+  background-size: 24px 24px;
+  padding-left: 56px;
   text-align: left;
 }
 
 #images-button-delete-all {
-  color: #d32f2f;
+  background-image: url(/static/img/delete.svg);
+  background-position: 16px center;
+  background-repeat: no-repeat;
+  background-size: 24px 24px;
   width: 100%;
-  height: 44px;
+  padding-left: 56px;
+  text-align: left;
+  color: #d32f2f;
   margin-top: 10px;
 }
 
-/* --- Status Areas --- */
+/* --- Status Text --- */
 #scan-control-status {
   text-align: center;
   font-size: 20px;
   font-weight: 500;
-  padding-top: 24px;
+  padding-bottom: 24px;
   color: #9e9e9e;
 }
 
 /* --- Image Gallery Grid --- */
 .image-container {
   width: 200px;
-  height: auto; /* let it grow if needed */
   min-height: 280px;
   float: left;
   border: none;
@@ -218,6 +292,7 @@ legend {
   justify-content: center;
   padding: 8px 0;
   background-color: #fafafa;
+  border-radius: 2px;
 }
 
 .image-desc {
@@ -229,6 +304,7 @@ legend {
   font-size: 13px;
   display: block;
   margin-bottom: 4px;
+  word-break: break-all;
 }
 .filesize {
   white-space: nowrap;
@@ -239,8 +315,9 @@ legend {
 
 .image-buttons button {
   width: 100%;
-  height: 36px;
-  font-size: 12px;
+  height: 32px;
+  font-size: 11px;
+  margin-top: 8px;
 }
 
 /* --- Logs & History --- */
@@ -253,10 +330,11 @@ legend {
   max-height: 250px;
   background-color: #263238;
   color: #80cbc4;
-  font-family: "Roboto Mono", monospace;
+  font-family: "Roboto Mono", Consolas, monospace;
   padding: 12px;
   border-radius: 4px;
   font-size: 12px;
+  box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.5);
 }
 
 .history {
